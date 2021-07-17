@@ -1,0 +1,67 @@
+name: gpa_calculator
+description: A new Flutter project.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.3
+  flutter_svg: ^0.22.0
+  hive: ^2.0.4
+  hive_flutter: ^1.1.0
+  percent_indicator: ^3.0.1
+  flutter_slidable: ^0.6.0
+  file_picker: ^3.0.3
+  permission_handler: ^8.1.2
+  fluttertoast: ^8.0.7
+  intl: ^0.17.0
+  share: ^2.0.4
+  package_info_plus: ^1.0.3
+  desktop_window: ^0.4.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  build_runner: ^2.0.6
+  hive_generator: ^1.1.0
+  easy_localization: ^3.0.0
+#  flutter_launcher_icons: ^0.9.0
+  flutter_native_splash: ^1.2.0
+
+flutter:
+
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/icons/
+    - assets/translations/
+  fonts:
+    - family: Montserrat
+      fonts:
+        - asset: assets/fonts/Montserrat/Montserrat-Medium.ttf
+    - family: Montserrat
+      fonts:
+        - asset: assets/fonts/Montserrat/Montserrat-SemiBold.ttf
+    - family: Cairo
+      fonts:
+        - asset: assets/fonts/Cairo/Cairo-SemiBold.ttf
+    - family: Cairo
+      fonts:
+        - asset: assets/fonts/Cairo/Cairo-Regular.ttf
+
+#flutter_icons:
+#  image_path: "assets/icons/launcher_icon.png"
+#  android: true
+#  ios: true
+#  remove_alpha_ios: true
+
+flutter_native_splash:
+  color: "#ffffff"
+  color_dark: "#002154"
+  image: assets/icons/splash.png
+  android: true
+  ios: true
