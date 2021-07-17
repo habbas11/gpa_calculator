@@ -5,7 +5,7 @@ A Flutter app for calculating GPA, where users can store their marks of their co
 
 ## More... 😎
 
-This project is uses Hive as a database, with some other cool Flutter packages. 
+This project uses Hive as a database, with some other cool Flutter packages. 
 
 Here are some snapshots: 
 
