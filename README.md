@@ -19,6 +19,6 @@ Here are some snapshots:
 <br>
 <img align="center" alt="Hussam Habbas | GitHub" width="250px" src="/screenshots/10.png?raw=true alt=media" />
 <br>
-<img align="center" alt="Hussam Habbas | GitHub" height="200px" src="/screenshots/7.png?raw=true alt=media" />
-<br>
+<img align="center" alt="Hussam Habbas | GitHub" height="300px" src="/screenshots/7.png?raw=true alt=media" />
+<br><br>
 <img align="center" alt="Hussam Habbas | GitHub" width="600px" src="/screenshots/11.png?raw=true alt=media" />
