@@ -9,9 +9,9 @@ This project is uses Hive as a database, with some other cool Flutter packages.
 
 Here are some snapshots: 
 
-<img align="center" alt="Hussam Habbas | GitHub" width="200px" src="/screenshots/1.png?raw=true alt=media" />
-<img align="center" alt="Hussam Habbas | GitHub" width="200px" src="/screenshots/2.png?raw=true alt=media" />
-<img align="center" alt="Hussam Habbas | GitHub" width="200px" src="/screenshots/3.png?raw=true alt=media" />
+<img align="center" alt="Hussam Habbas | GitHub" src="/screenshots/1.png?raw=true alt=media" />
+<img align="center" alt="Hussam Habbas | GitHub" src="/screenshots/2.png?raw=true alt=media" />
+<img align="center" alt="Hussam Habbas | GitHub" src="/screenshots/3.png?raw=true alt=media" />
 <img align="center" alt="Hussam Habbas | GitHub" width="200px" src="/screenshots/4.png?raw=true alt=media" />
 <img align="center" alt="Hussam Habbas | GitHub" width="200px" src="/screenshots/5.png?raw=true alt=media" />
 <img align="center" alt="Hussam Habbas | GitHub" width="200px" src="/screenshots/6.png?raw=true alt=media" />
