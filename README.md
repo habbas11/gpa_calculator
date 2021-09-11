@@ -2,6 +2,7 @@
 
 A Flutter app for calculating GPA, where users can store their marks of their courses.
 
+You can download and test the app from [here](https://github.com/habbas11/gpa_calculator/raw/master/gpa_calculator.apk)
 
 ## More... 😎
 
