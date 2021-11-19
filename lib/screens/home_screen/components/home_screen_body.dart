@@ -24,12 +24,10 @@ class HomeScreenBody extends StatefulWidget {
 
 class _HomeScreenBodyState extends State<HomeScreenBody> {
   bool _showFAB = true;
-  late SlidableController _slidableController;
 
   @override
   void initState() {
     super.initState();
-    _slidableController = SlidableController();
   }
 
   @override
@@ -58,34 +56,34 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
 
   Column buildWideView() {
     return Column(
-                children: [
-                  Expanded(
-                    child: Row(
-                      children: [
-                        Container(
-                          height: double.infinity,
-                          width: 280.0,
-                          child: Column(
-                            children: [
-                              CustomAppbar(),
-                              Spacer(),
-                              buildGPAPercent(),
-                              Spacer(),
-                            ],
-                          ),
-                        ),
-                        Expanded(
-                          child: Container(
-                            height: double.infinity,
-                            color: Colors.white,
-                            child: buildCoursesCardWide(),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              );
+      children: [
+        Expanded(
+          child: Row(
+            children: [
+              Container(
+                height: double.infinity,
+                width: 280.0,
+                child: Column(
+                  children: [
+                    CustomAppbar(),
+                    Spacer(),
+                    buildGPAPercent(),
+                    Spacer(),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  height: double.infinity,
+                  color: Colors.white,
+                  child: buildCoursesCardWide(),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 
   Stack buildMobileView() {
@@ -157,57 +155,69 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
   }
 
   buildCoursesCardsWide(List<Course> courses) {
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: courses.length == 0 ? 1 : courses.length,
-      itemBuilder: (context, index) {
-        if (courses.length == 0) {
-          return Center(
-            child: AddCoursesNote(),
-          );
-        }
-        final finalResult = courseFinalResult(courses[index]);
-        final Course currentCourse = courses[index];
-        return Slidable(
-          actionExtentRatio: 0.1,
-          actionPane: SlidableBehindActionPane(),
-          controller: _slidableController,
-          child: CourseCard(
-            finalResult: finalResult,
-            course: currentCourse,
-            index: index,
-          ),
-          actions: [
-            IconSlideAction(
-              caption: LocaleKeys.edit.tr(),
-              color: Colors.blue,
-              icon: Icons.edit,
-              onTap: () => Navigator.pushNamed(
-                context,
-                AddCourseScreen.routeName,
-                arguments: ScreenArguments(course: currentCourse),
-              ),
-            ),
-            IconSlideAction(
-              caption: LocaleKeys.delete.tr(),
-              color: Colors.redAccent,
-              icon: Icons.delete,
-              onTap: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      context.locale.toString() == 'ar'
-                          ? '${LocaleKeys.been_deleted.tr()} ${currentCourse.courseName}.'
-                          : '${currentCourse.courseName} ${LocaleKeys.been_deleted.tr()}.',
-                    ),
+    return SlidableAutoCloseBehavior(
+      child: ListView.builder(
+        shrinkWrap: true,
+        itemCount: courses.length == 0 ? 1 : courses.length,
+        itemBuilder: (context, index) {
+          if (courses.length == 0) {
+            return Center(
+              child: AddCoursesNote(),
+            );
+          }
+          final finalResult = courseFinalResult(courses[index]);
+          final Course currentCourse = courses[index];
+          return Slidable(
+            groupTag: 0,
+            startActionPane: ActionPane(
+              motion: const DrawerMotion(),
+              extentRatio: 0.25,
+              children: [
+                SlidableAction(
+                  autoClose: true,
+                  label: LocaleKeys.edit.tr(),
+                  backgroundColor: Colors.blue,
+                  icon: Icons.edit,
+                  onPressed: (context) => Navigator.pushNamed(
+                    context,
+                    AddCourseScreen.routeName,
+                    arguments: ScreenArguments(course: currentCourse),
                   ),
-                );
-                currentCourse.delete();
-              },
+                ),
+              ],
             ),
-          ],
-        );
-      },
+            endActionPane: ActionPane(
+              motion: const DrawerMotion(),
+              extentRatio: 0.25,
+              children: [
+                SlidableAction(
+                  autoClose: true,
+                  label: LocaleKeys.delete.tr(),
+                  backgroundColor: Colors.redAccent,
+                  icon: Icons.delete,
+                  onPressed: (context) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          context.locale.toString() == 'ar'
+                              ? '${LocaleKeys.been_deleted.tr()} ${currentCourse.courseName}.'
+                              : '${currentCourse.courseName} ${LocaleKeys.been_deleted.tr()}.',
+                        ),
+                      ),
+                    );
+                    currentCourse.delete();
+                  },
+                ),
+              ],
+            ),
+            child: CourseCard(
+              finalResult: finalResult,
+              course: currentCourse,
+              index: index,
+            ),
+          );
+        },
+      ),
     );
   }
 
@@ -245,59 +255,72 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
           ),
           child: ScrollConfiguration(
             behavior: NoGlowOnScrolling(),
-            child: ListView.builder(
-              physics: BouncingScrollPhysics(),
-              controller: _draggableScrollController,
-              itemCount: courses.length == 0 ? 1 : courses.length,
-              itemBuilder: (context, index) {
-                if (courses.length == 0)
-                  return Padding(
-                    padding: EdgeInsets.only(top: 20.0),
-                    child: AddCoursesNote(),
+            child: SlidableAutoCloseBehavior(
+              child: ListView.builder(
+                physics: BouncingScrollPhysics(),
+                controller: _draggableScrollController,
+                itemCount: courses.length == 0 ? 1 : courses.length,
+                itemBuilder: (context, index) {
+                  if (courses.length == 0)
+                    return Padding(
+                      padding: EdgeInsets.only(top: 20.0),
+                      child: AddCoursesNote(),
+                    );
+                  final finalResult = courseFinalResult(courses[index]);
+                  final Course currentCourse = courses[index];
+                  return Slidable(
+                    groupTag: 0,
+                    startActionPane: ActionPane(
+                      motion: const DrawerMotion(),
+                      extentRatio: 0.25,
+                      children: [
+                        SlidableAction(
+                          autoClose: true,
+                          label: LocaleKeys.edit.tr(),
+                          backgroundColor: Colors.blue,
+                          icon: Icons.edit,
+                          onPressed: (context) {
+                             Navigator.pushNamed(
+                            context,
+                            AddCourseScreen.routeName,
+                            arguments: ScreenArguments(course: currentCourse),
+                          );
+                          },
+                        ),
+                      ],
+                    ),
+                    endActionPane: ActionPane(
+                      motion: const DrawerMotion(),
+                      extentRatio: 0.25,
+                      children: [
+                        SlidableAction(
+                          autoClose: true,
+                          label: LocaleKeys.delete.tr(),
+                          backgroundColor: Colors.redAccent,
+                          icon: Icons.delete,
+                          onPressed: (context) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  context.locale.toString() == 'ar'
+                                      ? '${LocaleKeys.been_deleted.tr()} ${currentCourse.courseName}.'
+                                      : '${currentCourse.courseName} ${LocaleKeys.been_deleted.tr()}.',
+                                ),
+                              ),
+                            );
+                            currentCourse.delete();
+                          },
+                        ),
+                      ],
+                    ),
+                    child: CourseCard(
+                      finalResult: finalResult,
+                      course: currentCourse,
+                      index: index,
+                    ),
                   );
-                final finalResult = courseFinalResult(courses[index]);
-                final Course currentCourse = courses[index];
-                return Slidable(
-                  actionPane: SlidableScrollActionPane(),
-                  controller: _slidableController,
-                  child: CourseCard(
-                    finalResult: finalResult,
-                    course: currentCourse,
-                    index: index,
-                  ),
-                  actions: [
-                    IconSlideAction(
-                      caption: LocaleKeys.edit.tr(),
-                      color: Colors.blue,
-                      icon: Icons.edit,
-                      onTap: () => Navigator.pushNamed(
-                        context,
-                        AddCourseScreen.routeName,
-                        arguments: ScreenArguments(course: currentCourse),
-                      ),
-                    ),
-                  ],
-                  secondaryActions: [
-                    IconSlideAction(
-                      caption: LocaleKeys.delete.tr(),
-                      color: Colors.redAccent,
-                      icon: Icons.delete,
-                      onTap: () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              context.locale.toString() == 'ar'
-                                  ? '${LocaleKeys.been_deleted.tr()} ${currentCourse.courseName}.'
-                                  : '${currentCourse.courseName} ${LocaleKeys.been_deleted.tr()}.',
-                            ),
-                          ),
-                        );
-                        currentCourse.delete();
-                      },
-                    ),
-                  ],
-                );
-              },
+                },
+              ),
             ),
           ),
         );

@@ -12,21 +12,22 @@ import 'constants.dart';
 import 'models/course.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-Future main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+
   if (!kIsWeb && (Platform.isWindows || Platform.isLinux || Platform.isMacOS))
     await DesktopWindow.setMinWindowSize(const Size(500, 645));
   await Hive.initFlutter();
   Hive.registerAdapter(CourseAdapter());
   await Hive.openBox<Course>('Courses');
-  await EasyLocalization.ensureInitialized();
   runApp(
     EasyLocalization(
-      child: MyApp(),
       supportedLocales: [Locale('en'), Locale('ar')],
       path: 'assets/translations',
       fallbackLocale: Locale('en'),
       assetLoader: CodegenLoader(),
+      child: MyApp(),
     ),
   );
 }

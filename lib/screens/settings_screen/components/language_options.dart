@@ -15,8 +15,10 @@ class ChangeLanguageOptions extends StatelessWidget {
       children: [
         DefaultSmallButton(
           text: 'العربيّة',
-          onTap: () async =>
-              await context.setLocale(context.supportedLocales[1]),
+          onTap: () async {
+            await context.setLocale(context.supportedLocales[1]);
+            print(context.locale);
+          },
           bgColor: kPrimaryColor,
         ),
         SizedBox(width: 10.0),
