@@ -43,5 +43,11 @@
   "successful_restore": "Restored successfully",
   "send_subject": "My last GPA calculator database.",
   "delete_database": "Delete Database",
-  "successful_deletion": "Database has been deleted"
+  "successful_deletion": "Database has been deleted",
+  "letter_grade": "Letter Grade",
+  "gpa_scale": "GPA Scale",
+  "swipe": "Swipe left or right",
+  "went_wrong": "Sorry, something went wrong",
+  "cancel": "Cancel",
+  "sure": "Are you sure you want to delete your database?"
 }

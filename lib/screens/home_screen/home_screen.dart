@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:showcaseview/showcaseview.dart';
 import 'components/home_screen_body.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -6,6 +7,10 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return HomeScreenBody();
+    return ShowCaseWidget(
+      builder: Builder(
+        builder: (context) => HomeScreenBody(),
+      ),
+    );
   }
 }

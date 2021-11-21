@@ -1,6 +1,10 @@
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gpa_calculator/models/course.dart';
 import 'package:gpa_calculator/screens/course_details_screen/course_details.dart';
+import 'package:gpa_calculator/translations/locale_keys.g.dart';
 import 'course_card_list_tile.dart';
 
 class CourseCard extends StatelessWidget {
@@ -19,6 +23,10 @@ class CourseCard extends StatelessWidget {
     return Material(
       color: Colors.white,
       child: InkWell(
+        onLongPress: () async {
+          await HapticFeedback.lightImpact();
+          Fluttertoast.showToast(msg: LocaleKeys.swipe.tr());
+        },
         onTap: () {
           Navigator.pushNamed(
             context,
@@ -26,14 +34,7 @@ class CourseCard extends StatelessWidget {
             arguments: ScreenArguments(course: course),
           );
         },
-        child: Container(
-          padding: EdgeInsets.only(
-            left: 10.0,
-            right: 10.0,
-            top: index == 0 ? 12.0 : 0.0,
-          ),
-          child: CourseCardListTile(finalResult: finalResult, course: course),
-        ),
+        child: CourseCardListTile(finalResult: finalResult, course: course),
       ),
     );
   }

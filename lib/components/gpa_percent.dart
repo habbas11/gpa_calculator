@@ -1,4 +1,6 @@
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
+import 'package:gpa_calculator/translations/locale_keys.g.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 import '../functions.dart';
@@ -23,28 +25,32 @@ class GPAPercent extends StatelessWidget {
           lineWidth: 8.0,
           animation: true,
           percent: percent,
-          center: Text(
-            (percent * 100).toStringAsFixed(1) + '%',
-            style: TextStyle(fontSize: 40.0, color: textColor),
+          center: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                (percent * 100).toStringAsFixed(1) + '%',
+                style: TextStyle(fontSize: 40.0, color: textColor),
+              ),
+              const SizedBox(height: 20.0),
+              Text(
+                '${LocaleKeys.letter_grade.tr()}: ' + letterGrade(percent * 100.0),
+                style: TextStyle(
+                  color: textColor,
+                  fontSize: 15.0,
+                ),
+              ),
+              Text(
+                '${LocaleKeys.gpa_scale.tr()}: ' + percentGrade(percent * 100.0).toString(),
+                style: TextStyle(
+                  color: textColor,
+                  fontSize: 15.0,
+                ),
+              ),
+            ],
           ),
           circularStrokeCap: CircularStrokeCap.round,
           progressColor: progressColor,
-        ),
-        const SizedBox(height: 20.0),
-        Text(
-          'Letter Grade: ' + letterGrade(percent * 100.0),
-          style: TextStyle(
-            color: textColor,
-            fontSize: 15.0,
-          ),
-        ),
-        const SizedBox(height: 10.0),
-        Text(
-          'GPA Scale: ' + percentGrade(percent * 100.0).toString(),
-          style: TextStyle(
-            color: textColor,
-            fontSize: 15.0,
-          ),
         ),
       ],
     );

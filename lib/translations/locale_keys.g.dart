@@ -46,5 +46,11 @@ abstract class  LocaleKeys {
   static const send_subject = 'send_subject';
   static const delete_database = 'delete_database';
   static const successful_deletion = 'successful_deletion';
+  static const letter_grade = 'letter_grade';
+  static const gpa_scale = 'gpa_scale';
+  static const swipe = 'swipe';
+  static const went_wrong = 'went_wrong';
+  static const cancel = 'cancel';
+  static const sure = 'sure';
 
 }

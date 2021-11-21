@@ -59,7 +59,13 @@ class CodegenLoader extends AssetLoader{
   "successful_restore": "تمّت الاستعادة بنجاح",
   "send_subject": "آخر قاعدة بينانات لتطبيق GPA",
   "delete_database": "حذف قاعدة البيانات",
-  "successful_deletion": "تمّ حذف القاعدة بنجاح"
+  "successful_deletion": "تمّ حذف القاعدة بنجاح",
+  "letter_grade": "المعدل الحرفي",
+  "gpa_scale": "معدل الـ GPA",
+  "swipe": "اسحب لليمين أو اليسار",
+  "went_wrong": "عذراً، حدث خطأ",
+  "cancel": "إلغاء",
+  "sure": "هل أنت متأكِّد من رغبتك بحذف قاعدة البيانات؟"
 };
 static const Map<String,dynamic> en = {
   "home_header": "Current\nGPA",
@@ -106,7 +112,13 @@ static const Map<String,dynamic> en = {
   "successful_restore": "Restored successfully",
   "send_subject": "My last GPA calculator database.",
   "delete_database": "Delete Database",
-  "successful_deletion": "Database has been deleted"
+  "successful_deletion": "Database has been deleted",
+  "letter_grade": "Letter Grade",
+  "gpa_scale": "GPA Scale",
+  "swipe": "Swipe left or right",
+  "went_wrong": "Sorry, something went wrong",
+  "cancel": "Cancel",
+  "sure": "Are you sure you want to delete your database?"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ar": ar, "en": en};
 }

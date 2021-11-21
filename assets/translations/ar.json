@@ -43,5 +43,11 @@
   "successful_restore": "تمّت الاستعادة بنجاح",
   "send_subject": "آخر قاعدة بينانات لتطبيق GPA",
   "delete_database": "حذف قاعدة البيانات",
-  "successful_deletion": "تمّ حذف القاعدة بنجاح"
+  "successful_deletion": "تمّ حذف القاعدة بنجاح",
+  "letter_grade": "المعدل الحرفي",
+  "gpa_scale": "معدل الـ GPA",
+  "swipe": "اسحب لليمين أو اليسار",
+  "went_wrong": "عذراً، حدث خطأ",
+  "cancel": "إلغاء",
+  "sure": "هل أنت متأكِّد من رغبتك بحذف قاعدة البيانات؟"
 }

@@ -66,6 +66,7 @@ class MyApp extends StatelessWidget {
         bodyText1: TextStyle(
           fontWeight: FontWeight.bold,
         ),
+
       ),
       textSelectionTheme: TextSelectionThemeData(cursorColor: kPrimaryColor),
     );

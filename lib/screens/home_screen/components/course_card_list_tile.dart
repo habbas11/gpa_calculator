@@ -16,21 +16,31 @@ class CourseCardListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      isThreeLine: true,
-      leading: Icon(
-        Icons.brightness_1_rounded,
-        color: finalResult > 60 ? Colors.green : Colors.redAccent,
-      ),
-      title: Text(course.courseName),
-      subtitle: Text(
-          '${LocaleKeys.hw.tr()}: ${course.hwResult.toStringAsFixed(2)}%\n${LocaleKeys.exam.tr()}: ${course.examResult.toStringAsFixed(2)}%'),
-      trailing: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 10.0),
+      child: Row(
         children: [
-          Text(finalResult.toStringAsFixed(0) + '%'),
-          Text(letterGrade(finalResult * 1.0)),
-          Text(percentGrade(finalResult * 1.0).toString()),
+          Icon(
+            Icons.brightness_1_rounded,
+            color: finalResult > 60 ? Colors.green : Colors.redAccent,
+          ),
+          SizedBox(width: 5.0),
+          Expanded(
+            child: ListTile(
+
+              isThreeLine: true,
+              title: Text(course.courseName),
+              subtitle: Text(
+                  '${LocaleKeys.hw.tr()}: ${course.hwResult.toStringAsFixed(2)}%\n${LocaleKeys.exam.tr()}: ${course.examResult.toStringAsFixed(2)}%'),
+              trailing: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(finalResult.toStringAsFixed(0) + '%'),
+                  Text(letterGrade(finalResult * 1.0)),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );

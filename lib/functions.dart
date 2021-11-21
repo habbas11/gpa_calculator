@@ -1,3 +1,5 @@
+import 'models/course.dart';
+
 double percentGrade(double currentVal) {
   if (currentVal >= 98) return 4.00;
 
@@ -48,4 +50,8 @@ String letterGrade(double currentVal) {
   if (currentVal >= 50) return 'D';
 
   return 'E/F';
+}
+
+int courseFinalResult(Course course) {
+  return ((course.examResult * 0.7) + (course.hwResult * 0.3)).ceil();
 }

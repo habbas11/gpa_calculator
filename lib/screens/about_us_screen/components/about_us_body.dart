@@ -12,7 +12,7 @@ class AboutUsBody extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(LocaleKeys.about.tr()),
-        brightness: Brightness.dark,
+        backgroundColor: kPrimaryColor,
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -62,9 +62,7 @@ class VersionNumber extends StatelessWidget {
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 10.0),
-                  // Text('Package Name: ${snapshot.data![1]}'),
                   Text('Version: ${snapshot.data![2]}'),
-                  // Text('Build Number: ${snapshot.data![3]}'),
                   SizedBox(height: 50.0),
                   GestureDetector(
                     child: Text(

@@ -11,11 +11,14 @@ import 'package:gpa_calculator/screens/add_edit_course_screen/add_course.dart';
 import 'package:gpa_calculator/translations/locale_keys.g.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../../functions.dart';
 import 'add_course_fab.dart';
 import 'course_card.dart';
 import '../../../components/gpa_percent.dart';
 import 'no_courses.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 class HomeScreenBody extends StatefulWidget {
   @override
@@ -24,10 +27,23 @@ class HomeScreenBody extends StatefulWidget {
 
 class _HomeScreenBodyState extends State<HomeScreenBody> {
   bool _showFAB = true;
+  final _key1 = GlobalKey();
+  final _key2 = GlobalKey();
+  final _key3 = GlobalKey();
 
   @override
   void initState() {
+    checkShowCase();
     super.initState();
+  }
+
+  void checkShowCase() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.getInt('firstToUse') == null) {
+      WidgetsBinding.instance!.addPostFrameCallback((_) =>
+          ShowCaseWidget.of(context)!.startShowCase([_key1, _key2, _key3]));
+      await prefs.setInt('firstToUse', 1);
+    }
   }
 
   @override
@@ -50,7 +66,17 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
               : buildWideView(),
         ),
       ),
-      floatingActionButton: _showFAB ? AddCourseFAB() : null,
+      floatingActionButton: _showFAB
+          ? Showcase(
+              key: _key1,
+              description: 'Add Courses',
+              descTextStyle: TextStyle(color: kPrimaryColor),
+              overlayPadding: EdgeInsets.all(8.0),
+              shapeBorder: const CircleBorder(),
+              child: AddCourseFAB(),
+              showcaseBackgroundColor: Colors.white,
+            )
+          : null,
     );
   }
 
@@ -65,7 +91,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                 width: 280.0,
                 child: Column(
                   children: [
-                    CustomAppbar(),
+                    CustomAppbar(_key2),
                     Spacer(),
                     buildGPAPercent(),
                     Spacer(),
@@ -94,7 +120,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
           child: Center(
             child: Column(
               children: [
-                CustomAppbar(),
+                CustomAppbar(_key2),
                 SizedBox(height: 40.0),
                 buildGPAPercent(),
               ],
@@ -230,12 +256,10 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
           () {
             if (_draggableScrollController.position.userScrollDirection ==
                 ScrollDirection.forward) {
-              // print('Down');
               setState(() {
                 _showFAB = true;
               });
             } else {
-              // print('Up');
               setState(() {
                 _showFAB = false | (courses.length == 0);
               });
@@ -243,6 +267,9 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
           },
         );
         return Container(
+          padding: EdgeInsets.only(
+            top: 10.0,
+          ),
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
@@ -280,11 +307,11 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                           backgroundColor: Colors.blue,
                           icon: Icons.edit,
                           onPressed: (context) {
-                             Navigator.pushNamed(
-                            context,
-                            AddCourseScreen.routeName,
-                            arguments: ScreenArguments(course: currentCourse),
-                          );
+                            Navigator.pushNamed(
+                              context,
+                              AddCourseScreen.routeName,
+                              arguments: ScreenArguments(course: currentCourse),
+                            );
                           },
                         ),
                       ],
@@ -330,6 +357,10 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
 }
 
 class CustomAppbar extends StatelessWidget {
+  final _key;
+
+  CustomAppbar(this._key);
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -343,18 +374,22 @@ class CustomAppbar extends StatelessWidget {
           ],
           mainAxisAlignment: MainAxisAlignment.center,
         ),
-        IconButton(
-          icon: Icon(Icons.view_headline),
-          iconSize: 30.0,
-          tooltip: LocaleKeys.more.tr(),
-          color: Colors.white,
-          onPressed: () => Scaffold.of(context).openDrawer(),
+        Showcase(
+          key: _key,
+          description: 'Open Drawer',
+          descTextStyle: TextStyle(color: kPrimaryColor),
+          overlayPadding: EdgeInsets.all(2.0),
+          showArrow: false,
+          showcaseBackgroundColor: Colors.white,
+          child: IconButton(
+            icon: Icon(Icons.view_headline),
+            iconSize: 30.0,
+            tooltip: LocaleKeys.more.tr(),
+            color: Colors.white,
+            onPressed: () => Scaffold.of(context).openDrawer(),
+          ),
         )
       ],
     );
   }
-}
-
-int courseFinalResult(Course course) {
-  return ((course.examResult * 0.7) + (course.hwResult * 0.3)).ceil();
 }
